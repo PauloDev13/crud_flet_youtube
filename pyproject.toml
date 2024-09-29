@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "crud-flet-youtube"
+version = "0.1.0"
+description = ""
+authors = ["prmorais <prmorais1302@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+flet = "^0.24.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
