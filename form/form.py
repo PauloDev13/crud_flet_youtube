@@ -1,41 +1,29 @@
 import flet as ft
 
+from form.controls.buttons import Button
+from form.controls.inputs import Inputs
+
 
 class Form(ft.UserControl):
     def __init__(self):
         super().__init__(expand=True)
 
-        # Campo nome
-        self.name = ft.TextField(
-            label='Nome',
-            border_color=ft.colors.PURPLE
-        )
-        # Campo Idade
-        self.age = ft.TextField(
-            label='Idade',
-            border_color=ft.colors.PURPLE,
-            input_filter=ft.NumbersOnlyInputFilter(),
-            max_length=2
-        )
+        # Definindo os controles de texto do formulário
+        self.name = Inputs(label='Nome')
+        self.age = Inputs(label='Idade', text=False, max_length=2)
+        self.email = Inputs(label='E-mail')
+        self.phone = Inputs(label='Telefone', text=False, max_length=10)
 
-        # Campo Email
-        self.email = ft.TextField(
-            label='Email',
-            border_color=ft.colors.PURPLE
-        )
-
-        # Campo Telefone
-        self.phone = ft.TextField(
-            label='Telefone',
-            border_color=ft.colors.PURPLE,
-            input_filter=ft.NumbersOnlyInputFilter(),
-            max_length=10
-        )
+        # Definindo os controles de botões do formulário
+        btn_save = Button(text='Salvar', icon=ft.icons.SAVE)
+        btn_edit = Button(text='Editar', icon=ft.icons.EDIT)
+        btn_remove = Button(text='Remover', icon=ft.icons.DELETE)
 
         self.form = ft.Container(
             bgcolor='#222222',
             border_radius=10,
             col=4,
+            padding=20,
             content=ft.Column(
                 alignment=ft.MainAxisAlignment.SPACE_EVENLY,
                 horizontal_alignment=ft.CrossAxisAlignment.CENTER,
@@ -55,30 +43,9 @@ class Form(ft.UserControl):
                             spacing=10,
                             alignment=ft.MainAxisAlignment.CENTER,
                             controls=[
-                                ft.TextButton(
-                                    text='Salvar',
-                                    icon=ft.icons.SAVE,
-                                    style=ft.ButtonStyle(
-                                        color=ft.colors.WHITE,
-                                        bgcolor=ft.colors.PURPLE,
-                                    )
-                                ),
-                                ft.TextButton(
-                                    text='Editar',
-                                    icon=ft.icons.EDIT,
-                                    style=ft.ButtonStyle(
-                                        color=ft.colors.WHITE,
-                                        bgcolor=ft.colors.PURPLE,
-                                    )
-                                ),
-                                ft.TextButton(
-                                    text='Remover',
-                                    icon=ft.icons.DELETE,
-                                    style=ft.ButtonStyle(
-                                        color=ft.colors.WHITE,
-                                        bgcolor=ft.colors.PURPLE,
-                                    )
-                                )
+                                btn_save,
+                                btn_edit,
+                                btn_remove
                             ]
                         )
                     )
