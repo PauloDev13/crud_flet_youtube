@@ -3,7 +3,7 @@ import flet as ft
 from typing import Callable
 
 
-class Button(ft.TextButton):
+class TextButton(ft.TextButton):
     def __init__(
         self,
         text: str,
@@ -18,3 +18,17 @@ class Button(ft.TextButton):
             color=ft.colors.WHITE,
             bgcolor=ft.colors.PURPLE,
         )
+
+
+class IconButtons(ft.IconButton):
+    def __init__(
+            self,
+            tooltip: str,
+            icon: ft.Icon,
+            on_click: Callable[[ft.ControlEvent], None] = None
+    ) -> None:
+        super().__init__()
+        self.tooltip = tooltip
+        self.icon = icon
+        self.on_click = on_click
+        self.icon_color = ft.colors.WHITE
