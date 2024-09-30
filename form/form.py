@@ -34,7 +34,8 @@ class Form(ft.Container):
         )
         btn_remove = TextButton(
             text='Remover',
-            icon=ft.icons.DELETE
+            icon=ft.icons.DELETE,
+            on_click=self.remove_data
         )
 
         # Definindo os botões do tipo ícone da barra de tarefas
@@ -256,6 +257,11 @@ class Form(ft.Container):
             self.show_data()
 
         self.update()
+
+    def remove_data(self, e):
+        self.data.delete_contact(self.selected_row[1])
+        self.clean_fields()
+        self.show_data()
 
     def search_data(self, e):
         search = self.search_filed.value.lower()
