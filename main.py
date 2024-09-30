@@ -10,7 +10,9 @@ def main(page: ft.Page):
     page.window.min_height = 500
     page.window.min_width = 100
 
-    page.add(Form())
+    form = Form(page)
+
+    page.add(form)
 
 
 ft.app(target=main)

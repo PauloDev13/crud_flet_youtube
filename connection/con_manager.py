@@ -3,7 +3,7 @@ import sqlite3
 
 class ConnectionManager:
     def __init__(self):
-        self.connection = sqlite3.connect(database='data.db', check_same_thread=False)
+        self.connection = sqlite3.connect(database='connection/data.db', check_same_thread=False)
 
     def add_contact(self, name, age, email, phone):
         query = 'INSERT INTO contacts (NAME, AGE, EMAIL, PHONE) VALUES (?, ?, ?, ?)'
@@ -11,7 +11,7 @@ class ConnectionManager:
         self.connection.execute(query, (name, age, email, phone))
         self.connection.commit()
 
-    def get_all_contacts(self):
+    def get_all_contacts(self) -> list:
         cursor = self.connection.cursor()
         query = 'SELECT * FROM contacts'
         cursor.execute(query)
@@ -29,4 +29,3 @@ class ConnectionManager:
 
     def close_connection(self):
         self.connection.close()
-
