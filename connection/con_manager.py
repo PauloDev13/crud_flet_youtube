@@ -3,19 +3,36 @@ import sqlite3
 
 class ConnectionManager:
     def __init__(self):
-        self.connection = sqlite3.connect(database='connection/data.db', check_same_thread=False)
+        self.connection = sqlite3.connect(
+            database='connection/data.db',
+            check_same_thread=True
+        )
 
     def add_contact(self, name, age, email, phone):
-        query = 'INSERT INTO contacts (NAME, AGE, EMAIL, PHONE) VALUES (?, ?, ?, ?)'
+        try:
+            # cursor = self.connection.cursor()
+            query = 'INSERT INTO contacts (NAME, AGE, EMAIL, PHONE) VALUES (?, ?, ?, ?)'
+            self.connection.execute(query, (name, age, email, phone))
+            self.connection.commit()
+            print(f'contato {name} adicionado com sucesso')
 
-        self.connection.execute(query, (name, age, email, phone))
-        self.connection.commit()
+        except sqlite3.Error as e:
+            print('Erro ao inserir contato.', e)
+
+        except Exception as e:
+            # Captura outros erros e exibe a mensagem
+            print(f'Erro inesperado: {e}')
 
     def get_all_contacts(self) -> list:
-        cursor = self.connection.cursor()
-        query = 'SELECT * FROM contacts'
-        cursor.execute(query)
-        return cursor.fetchall()
+        try:
+            cursor = self.connection.cursor()
+            query = 'SELECT * FROM contacts'
+            cursor.execute(query)
+            return cursor.fetchall()
+
+        except sqlite3.Error as e:
+            print(f"Erro ao buscar contatos: {e}")
+            return []
 
     def update_contact(self, contact_id, name, age, email, phone):
         query = 'UPDATE contacts SET NAME=?, AGE=?, EMAIL=?, PHONE=? WHERE ID=?'
@@ -28,4 +45,5 @@ class ConnectionManager:
         self.connection.commit()
 
     def close_connection(self):
-        self.connection.close()
+        if self.connection:
+            self.connection.close()

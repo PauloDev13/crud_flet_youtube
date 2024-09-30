@@ -6,13 +6,28 @@ class Inputs(ft.TextField):
             self,
             label: str,
             max_length: float = None,
-            text: bool = True
+            is_text: bool = True
     ) -> None:
         super().__init__()
         self.label = label
-        self.text = text
+        self.is_text = is_text
         self.border_color = ft.colors.PURPLE
 
-        if not text:
+        if not is_text:
             self.max_length = max_length
             self.input_filter = ft.NumbersOnlyInputFilter()
+
+
+class DataText(ft.Text):
+    def __init__(self, value: str) -> None:
+        super().__init__()
+        self.value = value
+        self.color = ft.colors.PURPLE
+        self.weight=ft.FontWeight.BOLD
+
+
+class TableColumn(ft.DataColumn):
+    def __init__(self, data_text: DataText, numeric: bool = None) -> None:
+        super().__init__(self)
+        self.label = data_text
+        self.numeric = numeric
