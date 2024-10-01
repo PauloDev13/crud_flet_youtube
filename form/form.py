@@ -195,7 +195,7 @@ class Form(ft.Container):
         self.update()
 
     # Função que adiciona um contato ao banco de dados
-    def add_data(self, e):
+    def add_data(self, _):
         name = self.name.value
         age = self.age.value
         email = self.email.value
@@ -217,7 +217,7 @@ class Form(ft.Container):
                 # Chama a função que atualiza a exibição dos dados na tabela
                 self.show_data()
                 # Chama a função que fecha a conexão
-                self.data.close_connection()
+                # self.data.close_connection()
 
     def get_index(self, e):
         if e.control.selected:
@@ -234,7 +234,7 @@ class Form(ft.Container):
 
         self.update()
 
-    def edit_filed_text(self, e):
+    def edit_filed_text(self, _):
         try:
             self.name.value = self.selected_row[1]
             self.age.value = self.selected_row[2]
@@ -245,7 +245,7 @@ class Form(ft.Container):
             print('Ocorreu um erro ao editar', e)
         self.update()
 
-    def update_data(self, e):
+    def update_data(self, _):
         name = self.name.value
         age = self.age.value
         email = self.email.value
@@ -258,12 +258,12 @@ class Form(ft.Container):
 
         self.update()
 
-    def remove_data(self, e):
+    def remove_data(self, _):
         self.data.delete_contact(self.selected_row[1])
         self.clean_fields()
         self.show_data()
 
-    def search_data(self, e):
+    def search_data(self, _):
         search = self.search_filed.value.lower()
         name = list(filter(lambda x: search in x[1].lower(), self.data.get_all_contacts()))
         self.data_table.rows = []
